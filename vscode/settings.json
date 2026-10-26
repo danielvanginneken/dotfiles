@@ -1,0 +1,212 @@
+{
+  // ─── Editor ────────────────────────────────────────────────
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnPaste": true,
+  "editor.largeFileOptimizations": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "files.autoSave": "onFocusChange",
+
+  // ─── Workbench / Explorer ─────────────────────────────────
+  "workbench.colorTheme": "Dark Modern",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "material-icon-theme.folders.theme": "specific",
+  "workbench.editor.customLabels.enabled": true,
+  "workbench.editor.customLabels.patterns": {
+  },
+  "workbench.editorAssociations": {
+    "*.dll": "default",
+    "*.zip": "default",
+    "*.pptx": "default",
+    "*.pdf": "latex-workshop-pdf-hook",
+  },
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmPasteNative": false,
+  "files.exclude": {
+    "**/.git": false,
+  },
+
+  // ─── Privacy / Security ───────────────────────────────────
+  "telemetry.telemetryLevel": "off",
+"redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.promptForLocalFileProtocolHandling": false,
+  "json.schemaDownload.trustedDomains": {
+    "https://developer.microsoft.com/json-schemas/": true,
+    "https://json-schema.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://raw.githubusercontent.com/devcontainers/spec/": true,
+    "https://raw.githubusercontent.com/microsoft/vscode/": true,
+    "https://raw.githubusercontent.com/oxc-project/oxc/main/crates/oxc_linter/src/rules.rs": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://spec.openapis.org/": true,
+    "https://turbo.build": true,
+    "https://turborepo.com": true,
+    "https://www.schemastore.org/": true
+  },
+
+  // ─── Terminal / Debug ─────────────────────────────────────
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.initialHint": false,
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+  ],
+  "debug.onTaskErrors": "debugAnyway",
+"debug.toolBarLocation": "docked",
+
+  // ─── AI: Claude Code only ─────────────────────────────────
+  "chat.disableAIFeatures": true,
+  "claudeCode.preferredLocation": "sidebar",
+  "claudeCode.focusView": false,
+  "claudeCode.hideOnboarding": true,
+
+  // ─── Git ──────────────────────────────────────────────────
+  "git.autofetch": "all",
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.mergeEditor": true,
+  "git.openRepositoryInParentFolders": "always",
+  "git.replaceTagsWhenPull": true,
+  "git-graph.repository.sign.commits": true,
+  "git-graph.repository.sign.tags": true,
+  "git-graph.repository.commits.showSignatureStatus": true,
+  "gitlens.views.drafts.avatars": true,
+  "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.pullBranch": "never",
+
+  // ─── JS / TS: oxlint + oxfmt ──────────────────────────────
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[javascript]": {
+    "editor.formatOnPaste": false,
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
+  },
+  "[javascriptreact]": {
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
+  },
+  "[typescript]": {
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
+  },
+  "[typescriptreact]": {
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
+  },
+  "[json][jsonc]": {
+    "editor.formatOnPaste": false,
+  },
+
+  // ─── Python: Ruff + Pylance ───────────────────────────────
+  "python.analysis.typeCheckingMode": "strict",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit",
+    },
+  },
+
+  // ─── .NET: C# Dev Kit + CSharpier ─────────────────────────
+  "[csharp]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "on",
+      "strings": "on",
+    },
+  },
+  "[aspnetcorerazor]": {
+    "editor.defaultFormatter": null,
+  },
+  "userSecrets.ask": false,
+
+  // ─── Web / Markup ─────────────────────────────────────────
+  "prettier.bracketSameLine": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+  },
+  "[handlebars]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "on",
+      "strings": "on",
+    },
+  },
+  "[css][scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml",
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off",
+    },
+    "cSpell.fixSpellingWithRenameProvider": true,
+    "cSpell.advanced.feature.useReferenceProviderWithRename": true,
+    "cSpell.advanced.feature.useReferenceProviderRemove": "/^#+\\s/",
+  },
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "vscode-edge-devtools.webhintInstallNotification": true,
+
+  // ─── YAML / Docker ────────────────────────────────────────
+  "[yaml][github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.insertSpaces": true,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true,
+    },
+  },
+  "docker.extension.enableComposeLanguageServer": false,
+  "docker.extension.dockerEngineAvailabilityPrompt": false,
+
+  // ─── Misc tools ───────────────────────────────────────────
+  "cmake.showOptionsMovedNotification": false,
+  "hediet.vscode-drawio.theme": "auto",
+  "hediet.vscode-drawio.appearance": "light",
+  "hediet.vscode-drawio.resizeImages": null,
+
+  // ─── Spelling ─────────────────────────────────────────────
+  "cSpell.language": "en,nl",
+  "cSpell.userWords": [
+    "datasource",
+    "kubernetes",
+    "nullable",
+    "postgresql",
+    "webspace",
+  ],
+  "chat.byokUtilityModelDefault": "mainAgent",
+  "chat.utilityModel": "",
+  "chat.utilitySmallModel": "",
+}
