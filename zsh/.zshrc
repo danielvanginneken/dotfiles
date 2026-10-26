@@ -1,14 +1,67 @@
-setopt INTERACTIVE_COMMENTS
+# Shared across machines. Anything that only exists on one machine is guarded,
+# so a missing tool is skipped instead of printing an error.
+# Homebrew is set up in .zprofile; machine-only extras go in ~/.zshrc.local.
 
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Shell behaviour
+setopt INTERACTIVE_COMMENTS    # allow comments at the prompt
+setopt AUTO_CD                 # type a directory name to cd into it
 
-# fnm
-eval "$(fnm env --use-on-cd)"
-
-# History
+# History: large and shared across tabs
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
 SAVEHIST=100000
+setopt EXTENDED_HISTORY        # save a timestamp with every command
+setopt APPEND_HISTORY          # append instead of overwriting
+setopt SHARE_HISTORY           # share history across sessions
+setopt HIST_IGNORE_ALL_DUPS    # drop older duplicates
+setopt HIST_REDUCE_BLANKS      # strip superfluous blanks
+
+# Completions
+fpath=("$HOME/.docker/completions" $fpath)
+autoload -Uz compinit
+compinit -C                    # -C skips the security check for a faster start
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'   # case-insensitive
+
+# .NET
+[ -d /usr/local/share/dotnet ] && export PATH="$PATH:/usr/local/share/dotnet"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+
+# Java (Homebrew openjdk@21)
+if [ -d /opt/homebrew/opt/openjdk@21 ]; then
+  export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+  export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+fi
+
+# PNPM
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$HOME/.npm-global/bin:$PATH"
+
+# bun
+if [ -d "$HOME/.bun" ]; then
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
+  [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+fi
+
+# TeX Live (TinyTeX): pdflatex, xelatex, latexmk, tlmgr
+[ -d "$HOME/Library/TinyTeX" ] && export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
+
+# Vite+ again, after .zprofile's Homebrew PATH, so its node wins over brew's node.
+# Safe to re-source (it dedupes PATH) and it adds vp completions after compinit.
+[ -f "$HOME/.config/vite-plus/env" ] && . "$HOME/.config/vite-plus/env"
+
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Defaults
+alias mkdir="mkdir -pv"
+alias ls="ls -G"
+alias ll="ls -lhaG"
 
 # Git
 alias gs="git status"
@@ -22,10 +75,6 @@ alias gsw="git switch"
 alias gswc="git switch -c"
 alias gpl="git pull --ff-only"
 
-# PNPM
-export PNPM_HOME="$HOME/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
 # Typescript
 alias dev="pnpm dev"
 
@@ -34,22 +83,30 @@ alias dps="docker ps"
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+# macOS
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Docker CLI completions
-fpath=("$HOME/.docker/completions" $fpath)
-autoload -Uz compinit
-(( ${+_comps[docker]} )) || compinit
-
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+# List what's installed but in none of this machine's Brewfiles (only lists, never removes).
+# DOTFILES_MACHINE (personal or work) is set in ~/.zshrc.local.
+brewcheck() {
+  cat ~/dotfiles/Brewfile "$HOME/dotfiles/Brewfile.${DOTFILES_MACHINE:?set DOTFILES_MACHINE in ~/.zshrc.local}" \
+    ~/Brewfile.local 2>/dev/null | HOMEBREW_NO_AUTO_UPDATE=1 brew bundle cleanup --file=- |
+    sed '/^Would `brew cleanup`/,$d'   # drop the cache-cleanup listing after it
+}
 
 # Machine-specific config (work tooling, tokens). Not in this repo.
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
+# Plugins (brew install zsh-autosuggestions zsh-syntax-highlighting).
+# syntax-highlighting has to be sourced after everything that defines widgets.
+BREW_SHARE="${HOMEBREW_PREFIX:-/opt/homebrew}/share"
+[ -f "$BREW_SHARE/zsh-autosuggestions/zsh-autosuggestions.zsh" ] &&
+  source "$BREW_SHARE/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -f "$BREW_SHARE/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] &&
+  source "$BREW_SHARE/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+unset BREW_SHARE
+
 # Starship prompt (must stay last so it owns PROMPT)
-eval "$(starship init zsh)"
+command -v starship >/dev/null && eval "$(starship init zsh)"
