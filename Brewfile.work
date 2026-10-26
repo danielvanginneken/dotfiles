@@ -1,0 +1,24 @@
+# Work laptop only. Install with: brew bundle --file ~/dotfiles/Brewfile.work
+
+# Languages and runtimes
+brew "gcc"
+brew "llvm"
+brew "watchman"
+brew "yarn"
+
+# Databases and services
+brew "heroku"
+brew "lazydocker"
+brew "pgcli"
+brew "redis"
+
+# Android
+brew "scrcpy"
+
+# Apps
+cask "cyberduck"
+cask "docker-desktop"
+cask "figma"
+cask "postman"
+cask "redis-insight"
+cask "tableplus"

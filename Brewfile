@@ -1,5 +1,11 @@
-# Install with: brew bundle --file ~/dotfiles/Brewfile
-# Machine-specific extras go in ~/Brewfile.local (not in this repo).
+# Shared by every machine. Install with: brew bundle --file ~/dotfiles/Brewfile
+# Then the machine's own list: Brewfile.personal or Brewfile.work.
+# Anything you don't want in a public repo goes in ~/Brewfile.local.
+
+# Shell
+brew "starship"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 # CLI tools
 brew "bat"
@@ -7,50 +13,29 @@ brew "cloc"
 brew "direnv"
 brew "eza"
 brew "fd"
-brew "fzf"
 brew "gh"
 brew "git"
 brew "jq"
 brew "ripgrep"
-brew "starship"
 brew "tree"
 brew "wget"
 brew "yq"
 
 # Languages and runtimes
 brew "cocoapods"
-brew "fnm"
-brew "gcc"
-brew "llvm"
-brew "nvm"
 brew "pnpm"
 brew "uv"
 brew "vite-plus"
-brew "watchman"
-brew "yarn"
-
-# Databases and services
-brew "heroku"
-brew "lazydocker"
-brew "pgcli"
-brew "redis"
 
 # Android
-brew "scrcpy"
 cask "android-platform-tools"
 
 # Apps
 cask "claude"
 cask "claude-code"
-cask "cyberduck"
 cask "dbeaver-community"
-cask "docker-desktop"
-cask "figma"
 cask "google-chrome"
-cask "postman"
 cask "rectangle"
-cask "redis-insight"
-cask "tableplus"
 cask "visual-studio-code"
 cask "vorssaint"
 cask "whatsapp"
@@ -62,6 +47,7 @@ vscode "bradlc.vscode-tailwindcss"
 vscode "christian-kohler.npm-intellisense"
 vscode "christian-kohler.path-intellisense"
 vscode "codezombiech.gitignore"
+vscode "csharpier.csharpier-vscode"
 vscode "dbaeumer.vscode-eslint"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
@@ -76,6 +62,8 @@ vscode "kevinrose.vsc-python-indent"
 vscode "mikestead.dotenv"
 vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
+vscode "ms-dotnettools.csdevkit"
+vscode "ms-dotnettools.csharp"
 vscode "ms-dotnettools.vscode-dotnet-runtime"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"

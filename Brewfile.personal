@@ -1,0 +1,53 @@
+# Personal Mac only. Install with: brew bundle --file ~/dotfiles/Brewfile.personal
+
+tap "atlassian/acli"
+
+# CLI tools
+brew "atlassian/acli/acli"
+brew "azure-cli"
+brew "curl"
+brew "git-filter-repo"
+brew "go-task"
+brew "yt-dlp"
+
+# Languages and runtimes
+brew "openjdk@21"
+brew "unixodbc"
+cask "dotnet-sdk"
+
+# Documents and media
+brew "ffmpeg"
+brew "ghostscript"
+brew "graphviz"
+brew "pandoc"
+brew "poppler"
+brew "structurizr-cli"
+brew "whisperkit-cli"
+
+# Containers (instead of Docker Desktop)
+cask "orbstack"
+
+# Apps
+cask "1password"
+cask "1password-cli"
+cask "affinity"
+cask "anydesk"
+cask "audacity"
+cask "betterdisplay"
+cask "blender"
+cask "bruno"
+cask "canva"
+cask "macwhisper"
+cask "microsoft-edge"
+cask "obs"
+cask "obsidian"
+cask "spotify"
+
+# VS Code extensions
+vscode "atlassian.atlascode"
+vscode "ms-azuretools.vscode-azureresourcegroups"
+vscode "ms-mssql.data-workspace-vscode"
+vscode "ms-mssql.mssql"
+vscode "ms-mssql.sql-bindings-vscode"
+vscode "ms-mssql.sql-database-projects-vscode"
+vscode "ms-vscode.azure-repos"
