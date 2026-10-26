@@ -1,11 +1,47 @@
+[user]
+	name = Daniel van Ginneken
+[core]
+	editor = code --wait
+	autocrlf = input
+	eol = lf
 [init]
 	defaultBranch = main
 [pull]
 	rebase = true
+[push]
+	default = current
+	autoSetupRemote = true
+[commit]
+	verbose = true
+[branch]
+	sort = -committerdate
 [fetch]
 	prune = true
-[user]
-	name = Daniel van Ginneken
-# Email and credential helper live per machine in ~/.gitconfig.local
+[rerere]
+	enabled = true
+[status]
+	showUntrackedFiles = all
+[log]
+	abbrevCommit = true
+[merge]
+	tool = vscode
+	conflictStyle = zdiff3
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[diff]
+	tool = vscode
+	algorithm = histogram
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	lg = log --graph --oneline --decorate --all
+	last = log -1 HEAD
+	rb = rebase
+# Email, signing and credential helper live per machine in ~/.gitconfig.local.
+# Included last so it can override anything above.
 [include]
 	path = ~/.gitconfig.local
