@@ -28,8 +28,17 @@ link git/.gitconfig          "$HOME/.gitconfig"
 link git/ignore              "$HOME/.config/git/ignore"
 link starship/starship.toml  "$HOME/.config/starship.toml"
 link gh/config.yml           "$HOME/.config/gh/config.yml"
+link ssh/config              "$HOME/.ssh/config"
 link vscode/settings.json    "$HOME/Library/Application Support/Code/User/settings.json"
+link vscode/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
+link vscode/snippets         "$HOME/Library/Application Support/Code/User/snippets"
+
+# Rectangle imports this file on launch and then renames it, so copy instead of link.
+mkdir -p "$HOME/Library/Application Support/Rectangle"
+cp "$DOTFILES/rectangle/RectangleConfig.json" "$HOME/Library/Application Support/Rectangle/RectangleConfig.json"
+echo "copied  Rectangle config (quit and reopen Rectangle to import it)"
 
 # Local files are never in the repo; create empty ones so the includes resolve.
 [ -f "$HOME/.zshrc.local" ]     || touch "$HOME/.zshrc.local"
+[ -f "$HOME/.ssh/config.local" ] || touch "$HOME/.ssh/config.local"
 [ -f "$HOME/.gitconfig.local" ] || printf '[user]\n\temail = you@example.com\n' > "$HOME/.gitconfig.local"

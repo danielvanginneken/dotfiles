@@ -114,6 +114,7 @@
 
   // ─── Python: Ruff + Pylance ───────────────────────────────
   "python.analysis.typeCheckingMode": "strict",
+  "python.createEnvironment.trigger": "off",
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {

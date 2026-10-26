@@ -1,0 +1,9 @@
+# Shared SSH defaults. Hosts, keys and the agent live per machine in
+# ~/.ssh/config.local. It is included first because the first value found wins.
+Include ~/.ssh/config.local
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 5
