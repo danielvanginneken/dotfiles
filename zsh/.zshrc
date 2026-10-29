@@ -6,6 +6,9 @@ eval "$(fnm env --use-on-cd)"
 # History
 HISTSIZE=100000
 SAVEHIST=100000
+HISTFILE="$HOME/.zsh_history"
+# no duplicates, skip commands typed with a leading space, share between tabs
+setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS SHARE_HISTORY
 
 # Git
 alias gs="git status"
@@ -66,6 +69,11 @@ alias grbm="git rebase main"
 alias grbom="git rebase origin/main"
 alias gpf="git push --force-with-lease"
 
+# Listing and navigation
+command -v eza >/dev/null && alias ls="eza" ll="eza -l --git" la="eza -la --git" lt="eza --tree --level=2 --git-ignore"
+alias ..="cd .."
+alias ...="cd ../.."
+
 # PNPM
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -89,6 +97,10 @@ compinit
 
 # bun completions (needs compinit for compdef)
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# fzf: Ctrl-R history, Ctrl-T files, Alt-C cd; fd for file lists (respects .gitignore)
+command -v fzf >/dev/null && source <(fzf --zsh)
+command -v fd >/dev/null && export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git" FZF_CTRL_T_COMMAND="fd --type f --hidden --exclude .git"
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
