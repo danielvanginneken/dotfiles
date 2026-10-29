@@ -15,6 +15,7 @@ alias gs="git status"
 alias gss="git status --short"
 alias gd="git diff"
 alias gds="git diff --staged"
+alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
 
 alias ga="git add"
 alias gaa="git add --all"
@@ -25,6 +26,7 @@ alias gc="git commit --verbose"
 alias gca="git commit --verbose --all"
 alias gcmsg="git commit --message"
 alias gcam="git commit --all --message"
+alias 'gcn!'="git commit --verbose --amend --no-edit"
 
 alias gco="git checkout"
 alias gsw="git switch"
@@ -33,6 +35,7 @@ alias gswm="git switch main"
 alias gb="git branch"
 alias gba="git branch --all"
 alias gbd="git branch --delete"
+alias gbgd='LANG=C git branch --no-color -vv | grep ": gone]" | cut -c 3- | awk "{print \$1}" | xargs git branch -d'
 
 alias gf="git fetch"
 alias gfa="git fetch --all --tags --prune"
@@ -44,6 +47,7 @@ alias gm="git merge"
 alias gma="git merge --abort"
 alias gmc="git merge --continue"
 alias gmff="git merge --ff-only"
+alias gmom="git merge origin/main"
 
 alias gsta="git stash push"
 alias gstu="git stash --include-untracked"
@@ -53,12 +57,16 @@ alias gstaa="git stash apply"
 alias gstd="git stash drop"
 alias gsts="git stash show --patch"
 
+alias gwip='git add --all && git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
+alias gunwip='git log -1 --format=%s | grep -q -- "--wip--" && git reset HEAD~1'
+
 alias grb="git rebase"
 alias grbi="git rebase --interactive"
 alias grbc="git rebase --continue"
 alias grba="git rebase --abort"
 alias grbs="git rebase --skip"
 alias grbm="git rebase main"
+alias grbom="git rebase origin/main"
 alias gpf="git push --force-with-lease"
 
 # PNPM
