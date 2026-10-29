@@ -1,8 +1,5 @@
 setopt INTERACTIVE_COMMENTS
 
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # fnm
 eval "$(fnm env --use-on-cd)"
 
@@ -81,9 +78,6 @@ alias dps="docker ps"
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -91,7 +85,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Docker CLI completions
 fpath=("$HOME/.docker/completions" $fpath)
 autoload -Uz compinit
-(( ${+_comps[docker]} )) || compinit
+compinit
+
+# bun completions (needs compinit for compdef)
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
