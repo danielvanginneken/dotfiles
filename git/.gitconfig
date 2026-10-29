@@ -4,6 +4,20 @@
 	rebase = true
 [fetch]
 	prune = true
+[push]
+	# first push of a new branch sets the upstream itself
+	autoSetupRemote = true
+[rebase]
+	# stash a dirty tree before rebasing, restore it after
+	autoStash = true
+	# move fixup!/squash! commits next to their target in rebase -i
+	autoSquash = true
+[rerere]
+	# remember how a conflict was resolved and reuse it next time
+	enabled = true
+[merge]
+	# conflict markers also show the common ancestor
+	conflictStyle = zdiff3
 [user]
 	name = Daniel van Ginneken
 # Email and credential helper live per machine in ~/.gitconfig.local
