@@ -1,6 +1,7 @@
 # Work laptop only. Install with: brew bundle --file ~/dotfiles/Brewfile.work
 
 # Languages and runtimes
+brew "fnm"
 brew "gcc"
 brew "llvm"
 brew "watchman"
@@ -17,7 +18,6 @@ brew "scrcpy"
 
 # Apps
 cask "cyberduck"
-cask "docker-desktop"
 cask "figma"
 cask "postman"
 cask "redis-insight"

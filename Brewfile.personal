@@ -24,9 +24,6 @@ brew "poppler"
 brew "structurizr-cli"
 brew "whisperkit-cli"
 
-# Containers (instead of Docker Desktop)
-cask "orbstack"
-
 # Apps
 cask "1password"
 cask "1password-cli"
