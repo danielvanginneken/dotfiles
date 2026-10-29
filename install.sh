@@ -42,3 +42,7 @@ echo "copied  Rectangle config (quit and reopen Rectangle to import it)"
 [ -f "$HOME/.zshrc.local" ]     || touch "$HOME/.zshrc.local"
 [ -f "$HOME/.ssh/config.local" ] || touch "$HOME/.ssh/config.local"
 [ -f "$HOME/.gitconfig.local" ] || printf '[user]\n\temail = you@example.com\n' > "$HOME/.gitconfig.local"
+
+# Secret check for this (public) repo: hooks live in .githooks, not .git/hooks.
+git -C "$DOTFILES" config core.hooksPath .githooks
+echo "hooks   $DOTFILES/.githooks active"
