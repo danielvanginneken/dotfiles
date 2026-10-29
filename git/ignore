@@ -1,2 +1,27 @@
-**/.claude/settings.local.json
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+.DocumentRevisions-V100
+
+# Editor swap and backup files
+*.swp
+*.swo
+*~
+.idea/
+
+# Secrets and local env (keep committed templates)
+.env
+.env.*
+!.env.example
+!.env.sample
+.direnv/
+
+# Claude Code, per-machine files
+**/.claude/settings.local.json
+CLAUDE.local.md

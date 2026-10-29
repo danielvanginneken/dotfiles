@@ -23,6 +23,11 @@
 	showUntrackedFiles = all
 [log]
 	abbrevCommit = true
+[rebase]
+	# stash a dirty tree before rebasing, restore it after
+	autoStash = true
+	# move fixup!/squash! commits next to their target in rebase -i
+	autoSquash = true
 [merge]
 	tool = vscode
 	conflictStyle = zdiff3
