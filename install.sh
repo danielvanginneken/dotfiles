@@ -33,3 +33,7 @@ link vscode/settings.json    "$HOME/Library/Application Support/Code/User/settin
 # Local files are never in the repo; create empty ones so the includes resolve.
 [ -f "$HOME/.zshrc.local" ]     || touch "$HOME/.zshrc.local"
 [ -f "$HOME/.gitconfig.local" ] || printf '[user]\n\temail = you@example.com\n' > "$HOME/.gitconfig.local"
+
+# Secret check for this (public) repo: hooks live in .githooks, not .git/hooks.
+git -C "$DOTFILES" config core.hooksPath .githooks
+echo "hooks   $DOTFILES/.githooks active"

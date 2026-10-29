@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Blocks commits that look like they contain secrets or machine-local files.
+# Only file names and pattern labels are printed, never the matching text.
+# Bypass when you are sure: git commit --no-verify
+set -uo pipefail
+
+fail=0
+note() { echo "pre-commit: $*" >&2; fail=1; }
+
+# 1. File names that never belong in a public dotfiles repo
+while IFS= read -r f; do
+  case "$f" in
+    .env.example|.env.sample) ;;
+    *.local|*.local.*|.env|.env.*|*.pem|*.key|*.p12|*id_rsa*|*id_ed25519*)
+      note "blocked file: $f" ;;
+  esac
+done < <(git diff --cached --name-only --diff-filter=ACM)
+
+# 2. Token-shaped strings anywhere in the staged tree (file names only)
+scan() { # label, regex, extra git-grep flags
+  local hits
+  hits=$(git grep --cached -lIE ${3:-} -e "$2" -- . ':!.githooks/pre-commit' 2>/dev/null) || return 0
+  while IFS= read -r f; do note "$1 in $f"; done <<< "$hits"
+}
+scan "AWS access key"      'AKIA[0-9A-Z]{16}'
+scan "GitHub token"        'gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{20,}'
+scan "Slack token"         'xox[baprs]-[A-Za-z0-9-]{10,}'
+scan "API key (sk-)"       'sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}'
+scan "private key"         '-----BEGIN [A-Z ]*PRIVATE KEY-----'
+scan "secret-looking assignment" '(token|secret|passwd|password|api_?key)[A-Za-z_]*[[:space:]]*[=:][[:space:]]*["'"'"']?[A-Za-z0-9/+_.-]{16,}' -i
+
+# 3. Personal denylist (words that must never reach this repo), kept outside it
+deny="$HOME/.dotfiles-denylist"
+if [ -s "$deny" ]; then
+  hits=$(git grep --cached -lIiF -f <(grep -v '^[[:space:]]*$' "$deny") -- . ':!.githooks/pre-commit' 2>/dev/null) || hits=""
+  while IFS= read -r f; do [ -n "$f" ] && note "denylisted word in $f"; done <<< "$hits"
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo "pre-commit: commit blocked. Fix it, or bypass with --no-verify if you are sure." >&2
+  exit 1
+fi

@@ -34,3 +34,11 @@ that are never committed:
 - `~/.zshrc.local`: sourced at the end of `.zshrc`
 - `~/.gitconfig.local`: included from `.gitconfig` (put `user.email` here)
 - `~/Brewfile.local`: extra packages, `brew bundle --file ~/Brewfile.local`
+
+## Secret check
+
+This repo is public. `.githooks/pre-commit` (enabled by `install.sh`) blocks
+commits that stage `*.local` / `.env` / key files, token-shaped strings, or any
+word listed in `~/.dotfiles-denylist` (one per line, never committed: put
+company or internal names there). It prints file names only, never the match.
+Bypass with `git commit --no-verify` when you are sure.
