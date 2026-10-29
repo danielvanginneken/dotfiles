@@ -14,6 +14,7 @@ setopt EXTENDED_HISTORY        # save a timestamp with every command
 setopt APPEND_HISTORY          # append instead of overwriting
 setopt SHARE_HISTORY           # share history across sessions
 setopt HIST_IGNORE_ALL_DUPS    # drop older duplicates
+setopt HIST_IGNORE_SPACE       # skip commands typed with a leading space
 setopt HIST_REDUCE_BLANKS      # strip superfluous blanks
 
 # Completions
@@ -53,6 +54,10 @@ fi
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
+# fzf: Ctrl-R history, Ctrl-T files, Alt-C cd; fd for file lists (respects .gitignore)
+command -v fzf >/dev/null && source <(fzf --zsh)
+command -v fd >/dev/null && export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git" FZF_CTRL_T_COMMAND="fd --type f --hidden --exclude .git"
+
 # Navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -60,8 +65,13 @@ alias ....="cd ../../.."
 
 # Defaults
 alias mkdir="mkdir -pv"
-alias ls="ls -G"
-alias ll="ls -lhaG"
+
+# Listing: eza when installed, plain ls with colours otherwise
+if command -v eza >/dev/null; then
+  alias ls="eza" ll="eza -l --git" la="eza -la --git" lt="eza --tree --level=2 --git-ignore"
+else
+  alias ls="ls -G" ll="ls -lhaG"
+fi
 
 # Git
 alias gs="git status"
