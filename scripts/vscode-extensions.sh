@@ -11,8 +11,8 @@ installed="$(code --list-extensions | tr '[:upper:]' '[:lower:]' | sort)"
 extra="$(comm -13 <(echo "$wanted") <(echo "$installed"))"
 missing="$(comm -23 <(echo "$wanted") <(echo "$installed"))"
 
-[ -z "$extra" ]   || { echo "installed, not in Brewfile:"; echo "$extra" | sed 's/^/  /'; }
-[ -z "$missing" ] || { echo "in Brewfile, not installed:"; echo "$missing" | sed 's/^/  /'; }
+[ -z "$extra" ]   || { echo "installed, not in Brewfile:"; sed 's/^/  /' <<<"$extra"; }
+[ -z "$missing" ] || { echo "in Brewfile, not installed:"; sed 's/^/  /' <<<"$missing"; }
 
 if [ -z "$extra$missing" ]; then
   echo "ok      Brewfile and VS Code extensions match"
