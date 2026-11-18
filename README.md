@@ -34,3 +34,16 @@ that are never committed:
 - `~/.zshrc.local`: sourced at the end of `.zshrc`
 - `~/.gitconfig.local`: included from `.gitconfig` (put `user.email` here)
 - `~/Brewfile.local`: extra packages, `brew bundle --file ~/Brewfile.local`
+
+## VS Code
+
+The repo is the source of truth. `vscode/settings.json` is linked into place and
+VS Code's own Settings Sync is off for settings, so the two cannot overwrite each other.
+Extensions are listed in the `Brewfile`; check for drift with:
+
+```sh
+scripts/vscode-extensions.sh
+```
+
+Extensions you only want on one machine go in `~/Brewfile.local`. VS Code profiles are
+not covered: only the default profile is managed here.
