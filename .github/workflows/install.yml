@@ -12,8 +12,9 @@ jobs:
 
       - name: Lint shell scripts
         run: |
-          bash -n install.sh
-          shellcheck install.sh
+          brew install shellcheck
+          bash -n install.sh scripts/vscode-extensions.sh
+          shellcheck install.sh scripts/vscode-extensions.sh
           for f in zsh/.zshenv zsh/.zprofile zsh/.zshrc; do zsh -n "$f"; done
 
       - name: Install (first run)
