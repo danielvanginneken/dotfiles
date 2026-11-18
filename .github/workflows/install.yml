@@ -1,0 +1,43 @@
+name: install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  install:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint shell scripts
+        run: |
+          bash -n install.sh
+          shellcheck install.sh
+          for f in zsh/.zshenv zsh/.zprofile zsh/.zshrc; do zsh -n "$f"; done
+
+      - name: Install (first run)
+        run: ./install.sh
+
+      - name: Every link points into the repo
+        run: |
+          for dest in \
+            "$HOME/.zshenv" "$HOME/.zprofile" "$HOME/.zshrc" "$HOME/.gitconfig" \
+            "$HOME/.config/git/ignore" "$HOME/.config/starship.toml" \
+            "$HOME/.config/gh/config.yml" \
+            "$HOME/Library/Application Support/Code/User/settings.json"; do
+            [ -L "$dest" ] || { echo "not a symlink: $dest"; exit 1; }
+            [ -e "$dest" ] || { echo "dangling link: $dest"; exit 1; }
+          done
+
+      - name: Install again (must be a no-op)
+        run: |
+          out="$(./install.sh)"
+          echo "$out"
+          if echo "$out" | grep -E '^(linked|backup)'; then
+            echo "second run changed something"; exit 1
+          fi
+
+      - name: Git config parses
+        run: git config --list --show-origin > /dev/null
