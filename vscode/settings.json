@@ -6,7 +6,7 @@
   "editor.formatOnPaste": true,
   "editor.largeFileOptimizations": false,
   "editor.unicodeHighlight.invisibleCharacters": false,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "files.autoSave": "onFocusChange",
 
   // ─── Workbench / Explorer ─────────────────────────────────
@@ -15,8 +15,7 @@
   "workbench.startupEditor": "none",
   "material-icon-theme.folders.theme": "specific",
   "workbench.editor.customLabels.enabled": true,
-  "workbench.editor.customLabels.patterns": {
-  },
+  "workbench.editor.customLabels.patterns": {},
   "workbench.editorAssociations": {
     "*.dll": "default",
     "*.zip": "default",
@@ -33,7 +32,7 @@
 
   // ─── Privacy / Security ───────────────────────────────────
   "telemetry.telemetryLevel": "off",
-"redhat.telemetry.enabled": false,
+  "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
   "security.promptForLocalFileProtocolHandling": false,
   "json.schemaDownload.trustedDomains": {
@@ -47,7 +46,7 @@
     "https://spec.openapis.org/": true,
     "https://turbo.build": true,
     "https://turborepo.com": true,
-    "https://www.schemastore.org/": true
+    "https://www.schemastore.org/": true,
   },
 
   // ─── Terminal / Debug ─────────────────────────────────────
@@ -63,7 +62,7 @@
     "vscode-insiders",
   ],
   "debug.onTaskErrors": "debugAnyway",
-"debug.toolBarLocation": "docked",
+  "debug.toolBarLocation": "docked",
 
   // ─── AI: Claude Code only ─────────────────────────────────
   "chat.disableAIFeatures": true,
@@ -114,6 +113,7 @@
 
   // ─── Python: Ruff + Pylance ───────────────────────────────
   "python.analysis.typeCheckingMode": "strict",
+  "python.createEnvironment.trigger": "off",
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {
@@ -209,4 +209,14 @@
   "chat.byokUtilityModelDefault": "mainAgent",
   "chat.utilityModel": "",
   "chat.utilitySmallModel": "",
+  "mssql.connectionGroups": [
+    {
+      "name": "ROOT",
+      "id": "ROOT",
+    },
+  ],
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  "intellij.region": "europe",
+  "intellij.dataSharing": "none",
 }
